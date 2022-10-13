@@ -1,14 +1,14 @@
-import { ReactNode } from "react";
+import { ButtonHTMLAttributes, ReactNode } from "react";
 import { Slot } from "@radix-ui/react-slot";
 import { clsx } from "clsx";
 
-export interface ButtonProps {
+export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 	children?: ReactNode;
 	size?: 'sm' | 'md' | 'lg';
 	asChild?: boolean;
 }
 
-export function Button({ children, asChild, size = 'md' }: ButtonProps) {
+export function Button({ children, asChild, size = 'md', ...props }: ButtonProps) {
 	const Comp = asChild ? Slot : 'button';
 
 	return (
@@ -18,6 +18,8 @@ export function Button({ children, asChild, size = 'md' }: ButtonProps) {
 				'text-sm': size === 'md',
 				'text-md': size === 'lg',
 			})}
+
+			{...props}
 		>
 			{ children }
 		</Comp>
